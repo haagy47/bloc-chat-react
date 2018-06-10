@@ -10,7 +10,7 @@ class ActiveRoom extends Component {
           <div>{this.props.rooms}</div>
         </section>
         <section id="selected-room-messages">
-          <div>{this.props.messages}</div>
+          <div>{this.props.activeRoom.name}</div>
         </section>
       </section>
     )
