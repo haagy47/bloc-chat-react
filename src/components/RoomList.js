@@ -14,6 +14,7 @@ class RoomList extends Component {
 
   componentDidMount() {
    this.roomsRef.on('child_added', snapshot => {
+     console.log(snapshot)
      const room = snapshot.val();
      room.key = snapshot.key;
      this.setState({ rooms: this.state.rooms.concat( room ) });
@@ -24,10 +25,14 @@ class RoomList extends Component {
     this.setState({ newRoom: e.target.value })
   }
 
-  handleSubmit() {
+  handleSubmit(room, e) {
+    e.preventDefault();
+    if (!this.state.newRoom) {return}
     this.roomsRef.push({
-      name: this.state.newRoom
+      name: room
     })
+    const newRoom = { name: this.state.newRoom };
+    this.setState({ rooms: [...this.state.rooms, newRoom], newRoom: '' });
   }
 
   render() {
@@ -36,12 +41,12 @@ class RoomList extends Component {
         <section className="rooms">
           {
             this.state.rooms.map( (room, index) =>
-              <div key={index} onClick={this.props.handleRoomClick(room)}>{room.name}</div>
+              <div key={index} onClick={() => this.props.handleRoomClick(room)}>{room.name}</div>
             )
           }
         </section>
-        <form onSubmit={ (e) => this.handleSubmit(e) }>
-          <input type="text" value={this.state.newRoom} onChange={ (e) => this.handleRoomAddition(e) }/>
+        <form onSubmit={(e) => this.handleSubmit(this.state.newRoom, e)}>
+          <input type="text" value={this.state.newRoom} onChange={this.handleRoomAddition.bind(this)}/>
           <input type="submit" />
         </form>
       </section>

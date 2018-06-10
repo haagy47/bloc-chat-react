@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import RoomList from './components/RoomList';
-import MessageList from './components/MessageList';
+import RoomList from './../components/RoomList';
+import MessageList from './../components/MessageList';
 
 class ActiveRoom extends Component {
   render() {

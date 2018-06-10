@@ -4,24 +4,24 @@ class MessageList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: []
+      messages: [],
+      newMessage: ''
     }
 
     this.roomsRef = this.props.firebase.database().ref('rooms');
 
   }
 
-  componentDidMount() {
-   this.roomsRef.on('child_added', snapshot => {
-     const message = snapshot.val();
-     message.key = snapshot.key;
-     this.setState({ messages: this.state.messages.concat( message ) });
-   });
-  }
-
   render() {
     return(
-      <div></div>
+      <section className="message-list">
+        <section className="messages">
+        </section>
+        <form>
+          <input type="text"/>
+          <input type="submit" />
+        </form>
+      </section>
     )
   }
 }

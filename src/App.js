@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
+import ActiveRoom from './components/ActiveRoom';
 import * as firebase from 'firebase';
 var config = {
     apiKey: "AIzaSyA19Q4b9SplkYVrj4UrA4xDUKfEsJKhUfk",
@@ -23,7 +24,7 @@ class App extends Component {
 
   handleRoomClick(room) {
     this.setState({ activeRoom: room })
-    console.log(this.state.activeRoom)
+    console.log(room)
   }
 
   render() {
@@ -36,7 +37,9 @@ class App extends Component {
         />
         <MessageList
           firebase={firebase}
+          activeRoom={this.state.activeRoom}
         />
+
       </div>
     );
   }
