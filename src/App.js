@@ -18,12 +18,18 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeRoom: ''
+      activeRoom: '',
+      activeMessages: ''
     }
   }
 
   handleRoomClick(room) {
     this.setState({ activeRoom: room })
+    this.handleActiveMessages()
+  }
+
+  handleActiveMessages() {
+    //console.log(messages.key)
   }
 
   render() {
@@ -37,10 +43,12 @@ class App extends Component {
         <MessageList
           firebase={firebase}
           activeRoom={this.state.activeRoom}
+          handleActiveMessages={this.handleActiveMessages.bind(this)}
         />
         <ActiveRoom
           firebase={firebase}
           activeRoom={this.state.activeRoom}
+          activeMessages={this.state.activeMessages}
         />
       </div>
     );

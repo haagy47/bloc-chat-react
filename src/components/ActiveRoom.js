@@ -3,6 +3,12 @@ import RoomList from './../components/RoomList';
 import MessageList from './../components/MessageList';
 
 class ActiveRoom extends Component {
+
+  handleActiveContent(roomMessages) {
+    //const activeMessages = messages.filter(message => message.roomID.key === activeRoom.key)
+    console.log(roomMessages)
+  }
+
   render() {
     return(
       <section className="chat-display">
@@ -11,6 +17,7 @@ class ActiveRoom extends Component {
         </section>
         <section id="selected-room-messages">
           <div>{this.props.activeRoom.name}</div>
+          <div>{this.handleActiveContent(this.props.messages)}</div>
         </section>
       </section>
     )

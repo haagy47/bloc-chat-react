@@ -61,6 +61,11 @@ class MessageList extends Component {
           <input type="text" value={this.state.newMessage} onChange={this.handleMessageAddition.bind(this)}/>
           <input type="submit" />
         </form>
+        <ActiveRoom
+          messages={this.state.messages}
+          activeRoom={this.props.activeRoom}
+          activeMessages={this.props.activeMessages}
+        />
       </section>
     )
   }
