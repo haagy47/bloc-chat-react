@@ -5,15 +5,26 @@ import MessageList from './../components/MessageList';
 class ActiveRoom extends Component {
 
   handleActiveContent(roomMessages) {
-    //const activeMessages = messages.filter(message => message.roomID.key === activeRoom.key)
-    console.log(roomMessages)
+    //console.log(roomMessages)
+    //const activeMessages = roomMessages.filter(message => message.index === 1)
+    //console.log(activeMessages)
   }
 
   render() {
     return(
       <section className="chat-display">
         <section id="chat-room-list">
-          <div>{this.props.rooms}</div>
+          {
+            this.props.messages.map( (message, index, activeRoom) => {
+                if (message.roomId.key === activeRoom.key) {
+                  <div key={index}>
+                    <div className="message-username">{message.username}</div>
+                    <div className="message-content">{message.content}</div>
+                  </div>
+                  }
+                }
+              )
+          }
         </section>
         <section id="selected-room-messages">
           <div>{this.props.activeRoom.name}</div>

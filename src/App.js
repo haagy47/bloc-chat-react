@@ -25,7 +25,8 @@ class App extends Component {
 
   handleRoomClick(room) {
     this.setState({ activeRoom: room })
-    this.handleActiveMessages()
+    console.log(room)
+    //this.handleActiveMessages()
   }
 
   handleActiveMessages() {
