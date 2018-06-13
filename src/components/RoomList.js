@@ -48,7 +48,6 @@ class RoomList extends Component {
           <input type="text" value={this.state.newRoom} onChange={this.handleRoomAddition.bind(this)}/>
           <input type="submit" />
         </form>
-
       </section>
     )
   }

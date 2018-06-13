@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ActiveRoom from './../components/ActiveRoom';
 
 class MessageList extends Component {
   constructor(props) {
@@ -16,7 +15,6 @@ class MessageList extends Component {
 
   componentDidMount() {
    this.roomsRef.on('child_added', snapshot => {
-     //console.log(snapshot.val())
      const message = snapshot.val();
      message.key = snapshot.key;
      this.setState({ messages: this.state.messages.concat( message ) });
@@ -33,7 +31,7 @@ class MessageList extends Component {
     this.roomsRef.push({
       username: 'Emily',
       content: message,
-      sentAt: '10pm',
+      sentAt: this.timeStamp,
       roomId: this.props.activeRoom,
     })
     const newMessage = { content: this.state.newMessage };
@@ -47,13 +45,19 @@ class MessageList extends Component {
   render() {
     return (
       <section className="message-list">
+        <section className="active-room-name">{this.props.activeRoom.name}</section>
         <section className="messages">
           {
-            this.state.messages.map( (message, index) =>
-              <div key={index}>
-                <div className="message-username">{message.username}</div>
-                <div className="message-content">{message.content}</div>
-              </div>
+            this.state.messages.map( (message, index) => {
+              if (message.roomId.key === this.props.activeRoom.key) {
+                return (
+                  <div key={index}>
+                    <div className="message-username">{message.username}</div>
+                    <div className="message-content">{message.content}</div>
+                  </div>
+                  );
+                }
+              }
             )
           }
         </section>
@@ -61,11 +65,6 @@ class MessageList extends Component {
           <input type="text" value={this.state.newMessage} onChange={this.handleMessageAddition.bind(this)}/>
           <input type="submit" />
         </form>
-        <ActiveRoom
-          messages={this.state.messages}
-          activeRoom={this.props.activeRoom}
-          activeMessages={this.props.activeMessages}
-        />
       </section>
     )
   }
