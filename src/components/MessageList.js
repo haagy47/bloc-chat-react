@@ -25,11 +25,11 @@ class MessageList extends Component {
     this.setState({ newMessage: e.target.value })
   }
 
-  handleSubmit(message, e, rooms, key) {
+  handleSubmit(message, e, rooms, key, user) {
     e.preventDefault();
     if (!this.state.newMessage) {return}
     this.roomsRef.push({
-      username: 'Emily',
+      username: this.props.user,
       content: message,
       sentAt: this.timeStamp,
       roomId: this.props.activeRoom,
