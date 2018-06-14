@@ -25,16 +25,17 @@ class MessageList extends Component {
     this.setState({ newMessage: e.target.value })
   }
 
-  handleSubmit(message, e, rooms, key, user) {
+  handleSubmit(message, e, user, room) {
     e.preventDefault();
-    if (!this.state.newMessage) {return}
-    this.roomsRef.push({
-      username: this.props.user,
+    if (this.props.activeRoom === '') {return};
+    const newMessage = {
+      username: this.props.user === null ? 'Guest' : this.props.user.displayName,
       content: message,
       sentAt: this.timeStamp,
-      roomId: this.props.activeRoom,
-    })
-    const newMessage = { content: this.state.newMessage };
+      roomId: this.props.activeRoom.key,
+    };
+    if (!this.state.newMessage) {return};
+    this.roomsRef.push(newMessage);
     this.setState({ messages: [...this.state.messages, newMessage], newMessage: '' });
   }
 
@@ -45,11 +46,11 @@ class MessageList extends Component {
   render() {
     return (
       <section className="message-list">
-        <section className="active-room-name">{this.props.activeRoom.name}</section>
+        <section className="active-room-name">{this.props.activeRoom === '' ? 'Please select a room' : this.props.activeRoom.name}</section>
         <section className="messages">
           {
             this.state.messages.map( (message, index) => {
-              if (message.roomId.key === this.props.activeRoom.key) {
+              if (message.roomId === this.props.activeRoom.key) {
                 return (
                   <div key={index}>
                     <div className="message-username">{message.username}</div>
@@ -61,10 +62,12 @@ class MessageList extends Component {
             )
           }
         </section>
-        <form onSubmit={(e) => this.handleSubmit(this.state.newMessage, e)}>
-          <input type="text" value={this.state.newMessage} onChange={this.handleMessageAddition.bind(this)}/>
-          <input type="submit" />
-        </form>
+        <section className="message-entry">
+          <form onSubmit={(e) => this.handleSubmit(this.state.newMessage, e)}>
+            <input type="text" value={this.state.newMessage} onChange={this.handleMessageAddition.bind(this)}/>
+            <input type="submit" />
+          </form>
+        </section>
       </section>
     )
   }
