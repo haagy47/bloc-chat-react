@@ -15,7 +15,9 @@ class RoomList extends Component {
   componentDidMount() {
    this.roomsRef.on('child_added', snapshot => {
      const room = snapshot.val();
+    // console.log(room)
      room.key = snapshot.key;
+    // console.log(room.key)
      this.setState({ rooms: this.state.rooms.concat( room ) });
    });
   }
@@ -27,10 +29,12 @@ class RoomList extends Component {
   handleSubmit(room, e) {
     e.preventDefault();
     if (!this.state.newRoom) {return}
-    this.roomsRef.push({
-      name: room
-    })
-    const newRoom = { name: this.state.newRoom };
+    console.log(this.roomsRef.rooms.key)
+    const newRoom = {
+      name: room,
+      key: room
+    };
+    this.roomsRef.push(newRoom)
     this.setState({ rooms: [...this.state.rooms, newRoom], newRoom: '' });
   }
 

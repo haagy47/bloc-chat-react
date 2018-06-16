@@ -34,6 +34,7 @@ class MessageList extends Component {
       sentAt: this.timeStamp,
       roomId: this.props.activeRoom.key,
     };
+    console.log(this.props.activeRoom.key)
     if (!this.state.newMessage) {return};
     this.roomsRef.push(newMessage);
     this.setState({ messages: [...this.state.messages, newMessage], newMessage: '' });
