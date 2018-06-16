@@ -32,7 +32,7 @@ class RoomList extends Component {
     console.log(this.roomsRef.rooms.key)
     const newRoom = {
       name: room,
-      key: room
+      key: room.key
     };
     this.roomsRef.push(newRoom)
     this.setState({ rooms: [...this.state.rooms, newRoom], newRoom: '' });
